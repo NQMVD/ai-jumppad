@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Stardive | Quick Jump</title>
+    
+    <!-- Fonts: Inter (Sans) and JetBrains Mono (Code) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (CDN for single file portability) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config for Custom Colors -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        background: '#0a0a0a',
+                        surface: '#111111',
+                        border: '#333333',
+                        accent: '#ffffff',
+                        secondary: '#888888',
+                    },
+                    backgroundImage: {
+                        'glow': 'conic-gradient(from 180deg at 50% 50%, #2a8af6 0deg, #a853ba 180deg, #e92a67 360deg)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for specific Vercel-like details -->
+    <style>
+        body {
+            background-color: #000000;
+            color: #ededed;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Subtle grid background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, #333333 1px, transparent 1px),
+                              linear-gradient(to bottom, #333333 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            opacity: 0.1;
+        }
+
+        /* Card Hover Glow Effect */
+        .card-wrapper {
+            position: relative;
+            background: #1c1c1c; /* Fallback */
+            border-radius: 16px; /* Increased radius for larger cards */
+            padding: 1px; /* The border width */
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .card-wrapper::before {
+            content: "";
+            position: absolute;
+            inset: -100%;
+            background: conic-gradient(from 0deg, transparent 0 340deg, #fff 360deg);
+            animation: rotate 5s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-wrapper:hover::before {
+            opacity: 1;
+        }
+
+        .card-content {
+            position: relative;
+            background: #0a0a0a;
+            border-radius: 15px; /* Matches wrapper minus padding */
+            height: 100%;
+            z-index: 10;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Smooth search input focus */
+        .search-input:focus {
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative overflow-x-hidden selection:bg-white selection:text-black">
+
+    <!-- Background Grid -->
+    <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 border-b border-white/10 bg-black/50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <!-- Logo Mark -->
+                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 22H22L12 2Z" fill="black"/>
+                    </svg>
+                </div>
+                <span class="font-bold text-lg tracking-tight">AI.Stardive</span>
+            </div>
+            
+            <a href="https://noah.stardive.live" target="_blank" class="text-xs text-secondary hover:text-white transition-colors font-mono flex items-center gap-2 group">
+                <span class="w-2 h-2 rounded-full bg-green-500 group-hover:animate-pulse"></span>
+                noah.stardive.live
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 pt-32 pb-20 px-6 max-w-7xl mx-auto w-full">
+        
+        <!-- Hero Section -->
+        <div class="mb-20 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50 mb-8">
+                The Intelligence Layer.
+            </h1>
+            <p class="text-secondary text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed font-light">
+                A curated gateway to the frontier of generative AI. <br class="hidden md:block" />
+                Jump to your destination.
+            </p>
+            
+            <!-- Search Bar -->
+            <div class="mt-12 max-w-lg mx-auto relative group">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-500 group-focus-within:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Find an agent (e.g. 'Scira', 'Manus')..." 
+                    class="search-input w-full bg-[#111] border border-white/10 rounded-full py-4 pl-12 pr-4 text-base text-white placeholder-gray-600 focus:outline-none focus:border-white/30 transition-all font-mono"
+                    autocomplete="off"
+                >
+                <div class="absolute inset-y-0 right-3 flex items-center">
+                    <kbd class="hidden md:flex items-center gap-1 px-2 py-1 bg-[#222] border border-white/10 rounded text-[10px] text-gray-400 font-mono">
+                        <span class="text-xs">⌘</span> K
+                    </kbd>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: The Frontier (User List) -->
+        <div class="mb-20">
+            <div class="flex items-center gap-3 mb-8 border-b border-white/5 pb-4">
+                <span class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]"></span>
+                <h2 class="text-sm font-mono text-secondary uppercase tracking-widest">The Frontier</h2>
+            </div>
+            
+            <!-- Increased Grid Gap to gap-8 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="frontierGrid">
+                <!-- Items inserted via JS config below -->
+            </div>
+        </div>
+
+        <!-- Section: Established (Common) -->
+        <div class="mb-20">
+            <div class="flex items-center gap-3 mb-8 border-b border-white/5 pb-4">
+                <span class="w-2 h-2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.3)]"></span>
+                <h2 class="text-sm font-mono text-secondary uppercase tracking-widest">Established Models</h2>
+            </div>
+            
+            <!-- Increased Grid Gap to gap-8 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="establishedGrid">
+                <!-- Items inserted via JS config below -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-[#050505] py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-secondary text-sm font-mono">
+                Deploying intelligence. <span class="text-white/30 mx-2">|</span> ai.stardive.live
+            </p>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        // DATA CONFIGURATION
+        const frontierApps = [
+            {
+                name: "Inception Labs",
+                url: "https://chat.inceptionlabs.ai",
+                desc: "Pioneering Mercury models with parallel generation capabilities for lightning-fast coding and text synthesis.",
+                tags: ["fast", "coding", "parallel"]
+            },
+            {
+                name: "Scira",
+                url: "https://scira.ai",
+                desc: "A minimalist, high-accuracy AI search engine combining RAG with real-time grounding.",
+                tags: ["search", "minimal", "info"]
+            },
+            {
+                name: "Manus",
+                url: "https://manus.im",
+                desc: "The first general-purpose AI agent that executes complex tasks autonomously. The 'Hand' of AI.",
+                tags: ["agent", "autonomous", "tasks"]
+            },
+            {
+                name: "Okata",
+                url: "https://okata.ai",
+                desc: "Secure identity platform for employees, customers, and AI agents. The future of access.",
+                tags: ["assistant", "new", "tools", "identity"]
+            },
+            {
+                name: "Parallel",
+                url: "https://parallel.ai",
+                desc: "Web infrastructure for agents. Low-latency search and research APIs built for machines.",
+                tags: ["research", "search", "fast"]
+            },
+            {
+                name: "Rube",
+                url: "https://rube.ai",
+                desc: "Let your AI get things done. Connects LLMs to 600+ apps for real-world action.",
+                tags: ["integration", "workflow", "connect"]
+            },
+            {
+                name: "Capi",
+                url: "https://capi.ai",
+                desc: "Conversational intelligence platform for transforming legacy ERP systems into profit engines.",
+                tags: ["platform", "erp", "business"]
+            },
+            {
+                name: "Uncovr",
+                url: "https://uncovr.app",
+                desc: "AI-driven search and information retrieval with organized, visual insights.",
+                tags: ["search", "deep dive", "info"]
+            },
+            {
+                name: "Jan",
+                url: "https://jan.ai",
+                desc: "Turn your computer into a private AI powerhouse. Local, offline, and open-source.",
+                tags: ["local", "offline", "privacy"]
+            }
+        ];
+
+        const establishedApps = [
+            {
+                name: "ChatGPT",
+                url: "https://chat.openai.com",
+                desc: "OpenAI's flagship O1/GPT-4 models. The standard for reasoning and conversation.",
+                tags: ["openai", "gpt", "classic"]
+            },
+            {
+                name: "Claude",
+                url: "https://claude.ai",
+                desc: "Anthropic's thoughtful assistant. Excellence in coding, nuance, and safety.",
+                tags: ["anthropic", "writing", "coding"]
+            },
+            {
+                name: "Gemini",
+                url: "https://gemini.google.com",
+                desc: "Google's multimodal powerhouse. Seamlessly integrated with the world's information.",
+                tags: ["google", "vision", "search"]
+            },
+            {
+                name: "Perplexity",
+                url: "https://perplexity.ai",
+                desc: "Deep research and citation engine. Where curiosity meets verifiable truth.",
+                tags: ["search", "citations", "news"]
+            },
+            {
+                name: "V0.dev",
+                url: "https://v0.dev",
+                desc: "Generative UI by Vercel. Turn prompts into production-ready React code instantly.",
+                tags: ["code", "ui", "design"]
+            },
+             {
+                name: "DeepSeek",
+                url: "https://chat.deepseek.com",
+                desc: "Advanced open-weight models. High performance coding and math capabilities.",
+                tags: ["coding", "math", "china"]
+            }
+        ];
+
+        // RENDER FUNCTION
+        function createCard(app) {
+            // Extract clean domain for display
+            let domain = '';
+            try {
+                const urlObj = new URL(app.url);
+                domain = urlObj.hostname.replace('www.', '');
+            } catch(e) { domain = app.url; }
+
+            return `
+                <a href="${app.url}" target="_blank" class="card-wrapper group block min-h-[160px] no-underline text-inherit app-card" data-name="${app.name.toLowerCase()}" data-tags="${app.tags.join(' ')}">
+                    <div class="card-content transition-colors duration-300 group-hover:bg-[#111]">
+                        <!-- New Grid Layout: Left (Identity) | Right (Info) -->
+                        <div class="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-6 h-full p-6 items-center">
+                            
+                            <!-- Left: Big Title & URL -->
+                            <div class="flex flex-col justify-center">
+                                <h3 class="font-bold text-3xl md:text-4xl tracking-tighter text-white group-hover:text-blue-400 transition-colors leading-none mb-2">${app.name}</h3>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-secondary font-mono uppercase tracking-wider group-hover:text-white transition-colors">${domain}</span>
+                                    <svg class="w-3 h-3 text-gray-600 group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Right: Description (Not right aligned text, but right positioned) -->
+                            <div class="hidden md:flex h-full items-center pl-6 border-l border-white/10">
+                                <p class="text-sm md:text-base text-gray-400 leading-snug group-hover:text-gray-300">
+                                    ${app.desc}
+                                </p>
+                            </div>
+                            
+                            <!-- Mobile-only Description -->
+                            <div class="md:hidden mt-2">
+                                <p class="text-sm text-gray-400 leading-snug">
+                                    ${app.desc}
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </a>
+            `;
+        }
+
+        const frontierContainer = document.getElementById('frontierGrid');
+        const establishedContainer = document.getElementById('establishedGrid');
+
+        // Initial Render
+        frontierContainer.innerHTML = frontierApps.map(createCard).join('');
+        establishedContainer.innerHTML = establishedApps.map(createCard).join('');
+
+        // SEARCH FUNCTIONALITY
+        const searchInput = document.getElementById('searchInput');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.app-card');
+
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                const tags = card.getAttribute('data-tags');
+                
+                if (name.includes(query) || tags.includes(query)) {
+                    card.style.display = 'block';
+                    card.parentElement.style.display = 'block'; // Ensure grid alignment works
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Keyboard Shortcut (Cmd/Ctrl + K)
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
+    </script>
+</body>
+</html>
