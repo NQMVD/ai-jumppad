@@ -366,9 +366,12 @@
 																		<div class="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-6 h-full p-6 items-center">
 																		
 																		<!-- Left: Big Title & URL -->
-																		<div class="flex flex-col justify-center">
-																		<!-- Replaced group-hover:text-blue-400 with gold-shine-on-hover and removed transition-colors -->
-																		<h3 class="font-bold text-3xl md:text-4xl tracking-tighter text-white gold-shine-on-hover leading-none mb-2">${app.name}</h3>
+								<div class="flex flex-col justify-center">
+								<!-- Icon + Title Row -->
+								<div class="flex items-center gap-3 mb-2">
+									<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" alt="" class="w-8 h-8 rounded-lg bg-white p-1 object-contain" onerror="this.style.display='none'">
+									<h3 class="font-bold text-3xl md:text-4xl tracking-tighter text-white gold-shine-on-hover leading-none">${app.name}</h3>
+								</div>
 																		<div class="flex items-center gap-2">
 																		<span class="text-sm text-secondary font-mono uppercase tracking-wider group-hover:text-white transition-colors">${domain}</span>
 																		<svg class="w-3 h-3 text-gray-600 group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -408,13 +411,16 @@
 			return `
 			<a href="${model.url}" target="_blank" class="card-wrapper group block no-underline text-inherit app-card" data-name="${model.name.toLowerCase()}" data-tags="${model.name.toLowerCase()}">
 				<div class="card-content transition-colors duration-300 group-hover:bg-[#111] p-5">
-					<div class="flex flex-col items-center text-center">
-						<h3 class="font-bold text-xl md:text-2xl tracking-tight text-white gold-shine-on-hover mb-1">${model.name}</h3>
-						<div class="flex items-center gap-1.5">
-							<span class="text-xs text-secondary font-mono uppercase tracking-wider group-hover:text-white transition-colors">${domain}</span>
-							<svg class="w-2.5 h-2.5 text-gray-600 group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-							</svg>
+					<div class="flex items-center gap-4">
+						<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" alt="" class="w-10 h-10 rounded-lg bg-white p-1 object-contain flex-shrink-0" onerror="this.style.display='none'">
+						<div class="flex flex-col min-w-0">
+							<h3 class="font-bold text-xl md:text-2xl tracking-tight text-white gold-shine-on-hover mb-0.5">${model.name}</h3>
+							<div class="flex items-center gap-1.5">
+								<span class="text-xs text-secondary font-mono uppercase tracking-wider group-hover:text-white transition-colors">${domain}</span>
+								<svg class="w-2.5 h-2.5 text-gray-600 group-hover:text-white transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+								</svg>
+							</div>
 						</div>
 					</div>
 				</div>
